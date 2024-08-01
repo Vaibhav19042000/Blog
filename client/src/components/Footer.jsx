@@ -79,7 +79,7 @@ export default function FooterCom(){
               <Footer.Icon href="#" icon={BsInstagram} />
               <Footer.Icon href="#" icon={BsTwitter} />
               <Footer.Icon
-                href="https://github.com/sahandghavidel"
+                href="https://github.com/Vaibhav19042000"
                 icon={BsGithub}
               />
               <Footer.Icon href="#" icon={BsDribbble} />
