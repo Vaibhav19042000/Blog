@@ -7,7 +7,8 @@ import postRoutes from "./routes/post.route.js";
 import commentRoutes from "./routes/comment.route.js";
 import cookieParser from "cookie-parser";
 import path from "path";
-
+import awsServlessExpress from 'aws-serverless-express'
+import {APIGatewayProxyEvent,Context} from 'aws-lambda'
 
 dotenv.config();
 
@@ -27,9 +28,6 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
-app.listen(3000, () => {
-  console.log("Server is running on port 3000!");
-});
 
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
@@ -51,3 +49,11 @@ app.use((err, req, res, next) => {
     message,
   });
 });
+
+const server = awsServlessExpress.createServer(app);
+
+export const handler= (event,context)=>{
+  return awsServlessExpress.proxy(server,event,context);
+}
+
+
