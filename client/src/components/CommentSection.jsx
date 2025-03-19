@@ -24,13 +24,20 @@ if(comment.length > 200){
   return;
 }
 try {
-  const res = await fetch("/api/comment/create", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ content: comment, postId, userId: currentUser._id }),
-  });
+  const res = await fetch(
+    "https://0kzm7wvu4b.execute-api.ap-south-1.amazonaws.com/api/comment/create",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        content: comment,
+        postId,
+        userId: currentUser._id,
+      }),
+    }
+  );
   const data = await res.json();
   if (res.ok) {
     setComment("");
@@ -46,7 +53,9 @@ try {
 useEffect(()=>{
   const getComments = async () => {
     try {
-      const res = await fetch(`/api/comment/getPostComments/${postId}`);
+      const res = await fetch(
+        `https://0kzm7wvu4b.execute-api.ap-south-1.amazonaws.com/api/comment/getPostComments/${postId}`
+      );
       if(res.ok){
         const data = await res.json();
         setComments(data);
@@ -65,9 +74,12 @@ try {
     navigate('/signIn');
     return;
   }
-  const res = await fetch(`/api/comment/likeComment/${commentId}`,{
-    method: 'PUT',
-  })
+  const res = await fetch(
+    `https://0kzm7wvu4b.execute-api.ap-south-1.amazonaws.com/api/comment/likeComment/${commentId}`,
+    {
+      method: "PUT",
+    }
+  );
   if(res.ok){
     const data = await res.json();
     setComments(comments.map((comment)=> 
@@ -96,9 +108,12 @@ try {
     navigate('/signIn')
     return;
   }
-  const res = await fetch(`/api/comment/deleteComment/${commentId}`,{
-    method: 'DELETE',
-  });
+  const res = await fetch(
+    `https://0kzm7wvu4b.execute-api.ap-south-1.amazonaws.com/api/comment/deleteComment/${commentId}`,
+    {
+      method: "DELETE",
+    }
+  );
   if(res.ok){
     const data = await res.json();
     setComments(comments.filter((comment)=>comment._id !== commentId))

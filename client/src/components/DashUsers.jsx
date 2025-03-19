@@ -14,7 +14,9 @@ const DashUsers = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch(`api/user/getusers`);
+        const res = await fetch(
+          `https://0kzm7wvu4b.execute-api.ap-south-1.amazonaws.com/api/user/getusers`
+        );
         const data = await res.json();
         if (res.ok) {
           setUsers(data.users);
@@ -35,7 +37,7 @@ const DashUsers = () => {
     const startIndex = users.length;
     try {
       const res = await fetch(
-        `/api/user/getusers?startIndex=${startIndex}`
+        `https://0kzm7wvu4b.execute-api.ap-south-1.amazonaws.com/api/user/getusers?startIndex=${startIndex}`
       );
       const data = await res.json();
       if (res.ok) {
@@ -51,7 +53,7 @@ const DashUsers = () => {
     setShowModal(false);
     try {
       const res = await fetch(
-        `/api/user/delete/${userIdToDelete}`,
+        `https://0kzm7wvu4b.execute-api.ap-south-1.amazonaws.com/api/user/delete/${userIdToDelete}`,
         {
           method: "DELETE",
         }

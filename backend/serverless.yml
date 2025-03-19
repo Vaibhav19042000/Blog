@@ -1,0 +1,17 @@
+service: backend-blog
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: ap-south-1
+  deploymentBucket:
+    name: serverless-backend-deployments-app
+  environment:
+    MONGO: "mongodb+srv://thevaibhav19:Vaibhav19000@blog.vcudzvb.mongodb.net/01_Blog?retryWrites=true&w=majority&appName=blog"
+    JWT_SECRET: "vaibhav"
+
+functions:
+  api:
+    handler: index.handler
+    events:
+      - httpApi: '*'

@@ -16,7 +16,9 @@ export default function Comment({comment,onLike,onEdit,onDelete}) {
     useEffect(()=>{
         const getUser = async () =>{
             try {
-             const res = await fetch(`/api/user/${comment.userId}`) 
+             const res = await fetch(
+               `https://0kzm7wvu4b.execute-api.ap-south-1.amazonaws.com/api/user/${comment.userId}`
+             ); 
              const data = await res.json();
              if(res.ok){
                 setUser(data);
@@ -36,15 +38,18 @@ const handleEdit = () =>{
 
 const handleSave = async () => {
   try {
-    const res = await fetch(`/api/comment/editComment/${comment._id}`,{
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        content: editedContent
-      })
-    })
+    const res = await fetch(
+      `https://0kzm7wvu4b.execute-api.ap-south-1.amazonaws.com/api/comment/editComment/${comment._id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          content: editedContent,
+        }),
+      }
+    );
     if(res.ok){
       setIsEditing(false);
       onEdit(comment,editedContent);

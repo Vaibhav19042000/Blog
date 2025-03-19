@@ -28,7 +28,9 @@ const UpdatePost = () => {
   useEffect(()=>{
 try {
     const fetchPost = async () =>{
- const res = await fetch(`/api/post/getposts?postId=${postId}`);
+ const res = await fetch(
+   `https://0kzm7wvu4b.execute-api.ap-south-1.amazonaws.com/api/post/getposts?postId=${postId}`
+ );
         const data = await res.json();
         if(!res.ok){
             setPublishError(data.message)
@@ -94,7 +96,7 @@ fetchPost()
     console.log("Form Data:", formData); // Log the form data
     try {
       const res = await fetch(
-        `/api/post/updatepost/${formData._id}/${currentUser._id}`,
+        `https://0kzm7wvu4b.execute-api.ap-south-1.amazonaws.com/api/post/updatepost/${formData._id}/${currentUser._id}`,
         {
           method: "PUT",
           headers: {

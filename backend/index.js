@@ -7,8 +7,7 @@ import postRoutes from "./routes/post.route.js";
 import commentRoutes from "./routes/comment.route.js";
 import cookieParser from "cookie-parser";
 import path from "path";
-import awsServlessExpress from 'aws-serverless-express'
-import {APIGatewayProxyEvent,Context} from 'aws-lambda'
+import serverless from "serverless-http";
 
 dotenv.config();
 
@@ -27,7 +26,6 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
-
 
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
@@ -50,10 +48,4 @@ app.use((err, req, res, next) => {
   });
 });
 
-const server = awsServlessExpress.createServer(app);
-
-export const handler= (event,context)=>{
-  return awsServlessExpress.proxy(server,event,context);
-}
-
-
+export const handler = serverless(app);

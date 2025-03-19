@@ -89,14 +89,16 @@ const handleSubmit = async (e) =>{
   }
   try {
     dispatch(updateStart());
-    const res = await fetch(`/api/user/update/${currentUser._id}`,{
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-
-    })
+    const res = await fetch(
+      `https://0kzm7wvu4b.execute-api.ap-south-1.amazonaws.com/api/user/update/${currentUser._id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      }
+    );
     const data = await res.json();
     if(!res.ok){
       dispatch(updateFailure(data.message));
@@ -116,9 +118,12 @@ const handleDeleteUser = async () => {
 setShowModal(false);
 try {
   dispatch(deleteUserStart());
-  const res = await fetch(`/api/user/delete/${currentUser._id}`,{
-    method: 'DELETE',
-  })
+  const res = await fetch(
+    `https://0kzm7wvu4b.execute-api.ap-south-1.amazonaws.com/api/user/delete/${currentUser._id}`,
+    {
+      method: "DELETE",
+    }
+  );
   const data = await res.json();
   if(!res.ok){
     dispatch(deleteUserFailure(data.message));
@@ -133,9 +138,12 @@ try {
 
 const handleSignOut = async () => {
 try {
-  const res = await fetch('api/user/signout',{
-    method: 'POST',
-  });
+  const res = await fetch(
+    "https://0kzm7wvu4b.execute-api.ap-south-1.amazonaws.com/api/user/signout",
+    {
+      method: "POST",
+    }
+  );
   const data = await res.json();
   if(!res.ok){
     console.log(data.message);

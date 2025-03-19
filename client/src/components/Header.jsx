@@ -26,9 +26,12 @@ export default function Header() {
 
   const handleSignout = async () => {
     try {
-      const res = await fetch("/api/user/signout", {
-        method: "POST",
-      });
+      const res = await fetch(
+        "https://0kzm7wvu4b.execute-api.ap-south-1.amazonaws.com/api/user/signout",
+        {
+          method: "POST",
+        }
+      );
       const data = await res.json();
       if (!res.ok) {
         console.log(data.message);

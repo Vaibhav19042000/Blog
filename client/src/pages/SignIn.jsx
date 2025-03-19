@@ -20,11 +20,14 @@ const SignIn = () => {
     }
     try {
       dispatch(signInStart()); 
-      const res = await fetch("/api/auth/signin", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formdata),
-      });
+      const res = await fetch(
+        "https://0kzm7wvu4b.execute-api.ap-south-1.amazonaws.com/api/auth/signin",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formdata),
+        }
+      );
       const data = await res.json();
       if (data.success === false) {
         dispatch(signInFailure(data.message));

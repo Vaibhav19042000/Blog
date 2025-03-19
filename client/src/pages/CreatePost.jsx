@@ -61,13 +61,16 @@ const navigate = useNavigate();
 const handleSubmit = async (e) => {
 e.preventDefault();
 try {
-  const res = await fetch('api/post/create',{
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(formData),
-  })
+  const res = await fetch(
+    "https://0kzm7wvu4b.execute-api.ap-south-1.amazonaws.com/api/post/create",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    }
+  );
   const data = await res.json();
   if(!res.ok){
     setPublishError(data.message)
