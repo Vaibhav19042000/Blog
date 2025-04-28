@@ -3,15 +3,30 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signInStart,signInFailure,signInSuccess } from "../redux/user/userSlice";
 import { useDispatch,useSelector } from "react-redux";
+import { FaEye, FaRegEyeSlash } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 import OAuth from "../components/OAuth";
 
 const SignIn = () => {
   const [formdata, setFormData] = useState({});
   const {loading, error: errorMessage} = useSelector(state => state.user)
+  const [isVisible,setIsVisible] = useState(false);
+  const [type,setType] = useState('password');
   const dispatch = useDispatch();
   const navigate = useNavigate();
   function handleChange(e) {
     setFormData({ ...formdata, [e.target.id]: e.target.value.trim() });
+  }
+
+  const handleToggle = (prev) => {
+    setIsVisible(!isVisible);
+    if(type==='password'){
+ setType("text");
+    }
+    else{
+       setType("password");
+    }
+   
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -66,17 +81,25 @@ const SignIn = () => {
                 placeholder="name@company.com"
                 id="email"
                 onChange={handleChange}
+                className="w-full"
               />
             </div>
             <div>
               <Label value="Your Password" />
-              <TextInput
-                type="password"
-                placeholder="*********"
-                id="password"
-                onChange={handleChange}
-              />
+              <div className="relative mb-4">
+                <TextInput
+                  type={type}
+                  placeholder="*********"
+                  id="password"
+                  onChange={handleChange}
+                  className="w-full "
+                />
+                <span onClick={handleToggle} className="cursor-pointer absolute right-3 top-1/2 transform -translate-y-1/2">
+                  {isVisible ? <FaRegEyeSlash /> : <FaEye />}
+                </span>
+              </div>
             </div>
+
             <Button
               gradientDuoTone="purpleToPink"
               type="submit"
@@ -91,7 +114,7 @@ const SignIn = () => {
                 "Sign In"
               )}
             </Button>
-            <OAuth/>
+            <OAuth />
           </form>
           <div className="flex gap-2 text-sm mt-5">
             <span>Don't Have an account?</span>
